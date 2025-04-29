@@ -114,27 +114,30 @@ public class ControllerImplementation implements IController, ActionListener {
             handleDeleteAll();
         }
     }
+    
+
+    
 
     private void handleDataStorageSelection() {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case "ArrayList":
+            case utils.Constants.ARRAYLIST_SELECTED:
                 dao = new DAOArrayList();
                 break;
-            case "HashMap":
+            case utils.Constants.HASHMAP_SELECTED:
                 dao = new DAOHashMap();
                 break;
-            case "File":
+            case utils.Constants.FILE_SELECTED:
                 setupFileStorage();
                 break;
-            case "File (Serialization)":
+            case utils.Constants.FILE_SERIALIZATION_SELECTED:
                 setupFileSerialization();
                 break;
-            case "SQL - Database":
+            case utils.Constants.SQL_DATABASE_SELECTED:
                 setupSQLDatabase();
                 break;
-            case "JPA - Database":
+            case utils.Constants.JPA_DATABASE_SELECTED:
                 setupJPADatabase();
                 break;
         }

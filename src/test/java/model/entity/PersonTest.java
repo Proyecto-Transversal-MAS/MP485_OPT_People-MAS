@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import javax.swing.ImageIcon;
 import java.util.Date;
-import model.entity.Person;
+//import model.entity.Person;
 
 class PersonTest {
 
