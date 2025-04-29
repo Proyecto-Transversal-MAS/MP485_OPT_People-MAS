@@ -7,7 +7,6 @@ import model.dao.DAOFile;
 import model.dao.DAOFileSerializable;
 import model.dao.DAOHashMap;
 import model.dao.DAOJPA;
-import model.dao.DAOSQL;
 import model.dao.IDAO;
 import start.Routes;
 import view.DataStorageSelection;
@@ -36,6 +35,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.dao.DAOSQL;
 import org.jdatepicker.DateModel;
 
 /**
@@ -119,24 +119,12 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case "ArrayList":
-                dao = new DAOArrayList();
-                break;
-            case "HashMap":
-                dao = new DAOHashMap();
-                break;
-            case "File":
-                setupFileStorage();
-                break;
-            case "File (Serialization)":
-                setupFileSerialization();
-                break;
-            case "SQL - Database":
-                setupSQLDatabase();
-                break;
-            case "JPA - Database":
-                setupJPADatabase();
-                break;
+            case "ArrayList" -> dao = new DAOArrayList();
+            case "HashMap" -> dao = new DAOHashMap();
+            case "File" -> setupFileStorage();
+            case "File (Serialization)" -> setupFileSerialization();
+            case "SQL - Database" -> setupSQLDatabase();
+            case "JPA - Database" -> setupJPADatabase();
         }
         setupMenu();
     }
@@ -183,6 +171,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 stmt.executeUpdate("create table if not exists " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + "("
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
+                        + "email varchar(50), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -226,15 +215,20 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        insert(p);
-        insert.getReset().doClick();
+        if (insert.getCheck().isSelected()) {
+            insert(p);
+            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
+            insert.getReset().doClick();   
+        } else {
+            JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void handleReadAction() {
@@ -248,6 +242,7 @@ public class ControllerImplementation implements IController, ActionListener {
         Person pNew = read(p);
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
+            read.getEmail().setText(pNew.getEmail());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -292,10 +287,13 @@ public class ControllerImplementation implements IController, ActionListener {
             Person pNew = read(p);
             if (pNew != null) {
                 update.getNam().setEnabled(true);
+                update.getEmail().setEnabled(true);
+                update.getCheck().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
+                update.getEmail().setText(pNew.getEmail());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -316,15 +314,19 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
             if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
-            update(p);
-            update.getReset().doClick();
+            if (update.getCheck().isSelected()) {
+                update(p);
+                update.getReset().doClick();   
+            } else {
+                JOptionPane.showMessageDialog(update, "Email is not valid, use the box next to the email field to validate the email before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -339,15 +341,16 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
+                model.setValueAt(s.get(i).getEmail(), i, 2);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 } else {
-                    model.setValueAt("", i, 2);
+                    model.setValueAt("", i, 3);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
+                    model.setValueAt("yes", i, 4);
                 } else {
-                    model.setValueAt("no", i, 3);
+                    model.setValueAt("no", i, 4);
                 }
             }
             readAll.setVisible(true);
@@ -406,7 +409,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     /**
      * This function updates the Person object with the requested NIF, if it
-     * doesn't exist. NIF can not be aupdated. If there is any access problem
+     * doesn't exist. NIF can not be updated. If there is any access problem
      * with the storage device, the program stops.
      *
      * @param p Person to update

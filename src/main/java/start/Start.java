@@ -19,10 +19,11 @@ public class Start {
      * @param args The application does not need input parameters to run
      * @author Francesc Perez
      * @version 1.1.0
-     */
+    */
+    
     public static void main(String[] args) {
         DataStorageSelection dSS = new DataStorageSelection();      
         IController cont = new ControllerImplementation(dSS);
         cont.start();     
-     }
+    }
 }
