@@ -219,7 +219,6 @@ public class Update extends javax.swing.JDialog {
 
         EmailIsValidCheck.setEnabled(false);
         EmailIsValidCheck.setFocusable(false);
-        EmailIsValidCheck.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -288,7 +288,6 @@ public class ControllerImplementation implements IController, ActionListener {
             if (pNew != null) {
                 update.getNam().setEnabled(true);
                 update.getEmail().setEnabled(true);
-                update.getCheck().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
