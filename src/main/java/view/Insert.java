@@ -6,21 +6,17 @@ import static utils.DataValidation.isNumber;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.KeyEvent;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import org.jdatepicker.DateModel;
+// DATEPICKER RELATED
 import org.jdatepicker.JDatePicker;
 
 /**
- * Interface used to register a person. It is mandatory to enter at least the 
+ * Interface used to register a person. It is mandatory to enter at least the
  * NIF and the name.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -32,6 +28,15 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
+        //inicializar
+        customDatePicker();
+    }
+
+    private void customDatePicker() {
+        // Con las siguientes 3 lineas accedemos al boton de datePicker, cambiamos el texto por lo que esta entre comillas, y cambiamos el tamaño para que sea visible.
+        JButton button = dateOfBirth.getButton();
+        button.setText("Select a date");
+        button.setPreferredSize(new java.awt.Dimension(110, 55));
     }
 
     public JButton getReset() {
@@ -78,6 +83,7 @@ public class Insert extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -249,6 +255,7 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
         getContentPane().add(dateOfBirth, gridBagConstraints);
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
         pack();
         setLocationRelativeTo(null);
@@ -267,17 +274,12 @@ public class Insert extends javax.swing.JDialog {
         nif.setText("");
         name.setText("");
         photo.setIcon(null);
-        //We reset the calendar date to the current date ...
-        LocalDate dateLocate = LocalDate.now();
-        ZoneId systemTimeZone = ZoneId.systemDefault();
-        ZonedDateTime zonedDateTime = dateLocate.atStartOfDay(systemTimeZone);
-        Date dateUtil = java.sql.Date.from(zonedDateTime.toInstant());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateUtil);
-        DateModel<Calendar> dateModel = (DateModel<Calendar>) dateOfBirth.getModel();
-        dateModel.setValue(calendar);
-        //... but do not display it in the JDatePicker box
-        dateOfBirth.getModel().setValue(null);
+
+        // Reset del JDatePicker
+        if (dateOfBirth.getModel() != null) {
+            dateOfBirth.getModel().setValue(null);
+        }
+
         insert.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
@@ -297,8 +299,7 @@ public class Insert extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nameKeyTyped
 
-    
-    
+
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         showInsert();
     }//GEN-LAST:event_nameKeyReleased
@@ -335,6 +336,7 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
     private javax.swing.JLabel photo;
