@@ -146,6 +146,7 @@ public class DataStorageSelection extends javax.swing.JFrame {
         getContentPane().add(hashMapCheck, gridBagConstraints);
 
         fileSerializationCheck.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        fileSerializationCheck.setSelected(true);
         fileSerializationCheck.setText("File (Serialization)");
         fileSerializationCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
