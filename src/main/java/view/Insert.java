@@ -1,14 +1,12 @@
 package view;
 
 import static utils.DataValidation.calculateNifLetter;
-import static utils.DataValidation.checkEmailAddress;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -64,14 +62,6 @@ public class Insert extends javax.swing.JDialog {
     public JLabel getPhoto() {
         return photo;
     }
-    
-    public JTextField getEmail() {
-        return email;
-    }
-    
-    public JCheckBox getCheck() {
-        return EmailIsValidCheck;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,8 +71,8 @@ public class Insert extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jCheckBox1 = new javax.swing.JCheckBox();
         insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -93,34 +83,43 @@ public class Insert extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
-        jLabel3 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
-        checkEmailField = new javax.swing.JButton();
-        EmailIsValidCheck = new javax.swing.JCheckBox();
-
-        jCheckBox1.setText("jCheckBox1");
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
         setMinimumSize(new java.awt.Dimension(810, 280));
-        setResizable(false);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         insert.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         insert.setText("INSERT");
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        getContentPane().add(insert);
-        insert.setBounds(270, 194, 187, 33);
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(insert, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Email");
+        jLabel1.setText("Name");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(192, 112, 150, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel1, gridBagConstraints);
 
         name.setText("Enter full name");
         name.setMaximumSize(new java.awt.Dimension(400, 22));
@@ -134,8 +133,14 @@ public class Insert extends javax.swing.JDialog {
                 nameKeyTyped(evt);
             }
         });
-        getContentPane().add(name);
-        name.setBounds(366, 72, 400, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(name, gridBagConstraints);
 
         reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reset.setText("RESET");
@@ -148,8 +153,13 @@ public class Insert extends javax.swing.JDialog {
                 resetActionPerformed(evt);
             }
         });
-        getContentPane().add(reset);
-        reset.setBounds(481, 194, 189, 33);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(reset, gridBagConstraints);
 
         photo.setBackground(new java.awt.Color(255, 255, 255));
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
@@ -164,16 +174,27 @@ public class Insert extends javax.swing.JDialog {
                 photoMouseClicked(evt);
             }
         });
-        getContentPane().add(photo);
-        photo.setBounds(20, 20, 150, 171);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 24, 12, 12);
+        getContentPane().add(photo, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("NIF");
         jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(192, 32, 150, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
+        getContentPane().add(jLabel5, gridBagConstraints);
 
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
@@ -190,73 +211,58 @@ public class Insert extends javax.swing.JDialog {
                 nifKeyTyped(evt);
             }
         });
-        getContentPane().add(nif);
-        nif.setBounds(366, 32, 400, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 24);
+        getContentPane().add(nif, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Date of Birth");
         jLabel8.setMaximumSize(new java.awt.Dimension(150, 22));
         jLabel8.setMinimumSize(new java.awt.Dimension(150, 22));
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(192, 154, 150, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 12);
+        getContentPane().add(jLabel8, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         jLabel2.setRequestFocusEnabled(false);
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(18, 253, 748, 11);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 24, 12, 24);
+        getContentPane().add(jLabel2, gridBagConstraints);
 
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
-        getContentPane().add(dateOfBirth);
-        dateOfBirth.setBounds(366, 151, 400, 22);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(12, 12, 12, 24);
+        getContentPane().add(dateOfBirth, gridBagConstraints);
+        getContentPane().add(jPanel1, new java.awt.GridBagConstraints());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Name");
-        jLabel3.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel3.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel3.setPreferredSize(new java.awt.Dimension(100, 22));
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(192, 70, 150, 22);
-
-        email.setMaximumSize(new java.awt.Dimension(400, 22));
-        email.setMinimumSize(new java.awt.Dimension(400, 22));
-        email.setPreferredSize(new java.awt.Dimension(400, 22));
-        email.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                emailKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                emailKeyTyped(evt);
-            }
-        });
-        getContentPane().add(email);
-        email.setBounds(366, 112, 294, 22);
-
-        checkEmailField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        checkEmailField.setText("CHECK");
-        checkEmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkEmailFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(checkEmailField);
-        checkEmailField.setBounds(666, 111, 76, 26);
-
-        EmailIsValidCheck.setEnabled(false);
-        EmailIsValidCheck.setFocusable(false);
-        EmailIsValidCheck.setRequestFocusEnabled(false);
-        getContentPane().add(EmailIsValidCheck);
-        EmailIsValidCheck.setBounds(748, 111, 19, 26);
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!email.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!name.getText().isEmpty() && !nif.isEditable()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -267,7 +273,6 @@ public class Insert extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
-        email.setText("");
         photo.setIcon(null);
 
         // Reset del JDatePicker
@@ -320,39 +325,15 @@ public class Insert extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nifKeyPressed
 
-    private void checkEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEmailFieldActionPerformed
-        if (!checkEmailAddress(email.getText()) && email.getText().length() < 1) {
-            JOptionPane.showMessageDialog(this, "Please introduce an email first before checking for validity.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            EmailIsValidCheck.setSelected(false);
-        } else {
-            if (!checkEmailAddress(email.getText())) {
-                JOptionPane.showMessageDialog(this, "Email not valid, remember, type only lowercase or uppercase letters, hyphens and do not leave trailing whitespaces.\nName, must not be less than 1 character and more than 64 characters.\nDomain and sub-domain must not be less than 2 characters and more than 9 characters.\n\nAn email should look like this 'example@example.com'", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-                EmailIsValidCheck.setSelected(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "Email specified is valid.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-                EmailIsValidCheck.setSelected(true);
-            }
-        }
-    }//GEN-LAST:event_checkEmailFieldActionPerformed
-
-    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
-        showInsert();
-    }//GEN-LAST:event_emailKeyReleased
-
-    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
-        EmailIsValidCheck.setSelected(false);
-    }//GEN-LAST:event_emailKeyTyped
+    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+        JOptionPane.showMessageDialog(this, "Person inserted successfully!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_insertActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox EmailIsValidCheck;
-    private javax.swing.JButton checkEmailField;
     private org.jdatepicker.JDatePicker dateOfBirth;
-    private javax.swing.JTextField email;
     private javax.swing.JButton insert;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -361,5 +342,4 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel photo;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
-
 }

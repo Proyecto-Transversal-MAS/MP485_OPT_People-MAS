@@ -26,7 +26,7 @@ import javax.swing.ImageIcon;
  */
 public class DAOJPA implements IDAO {
 
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory(Routes.DBO.getDbServerAddress());
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Routes.DBO.getDbServerAddress());
 
     private byte[] imageIconToBytes(ImageIcon icon) {
         Image image = icon.getImage();
