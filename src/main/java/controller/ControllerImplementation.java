@@ -21,22 +21,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dao.DAOSQL;
 import org.jdatepicker.DateModel;
+import com.opencsv.CSVWriter;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -331,13 +336,21 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleReadAll() {
         ArrayList<Person> s = readAll();
+
         if (s.isEmpty()) {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+
         } else {
             readAll = new ReadAll(menu, true);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
+
+            // limpiamos tabla por si tiene datos previos
+            model.setRowCount(0);
+
             for (int i = 0; i < s.size(); i++) {
-                model.addRow(new Object[i]);
+                // cambiamos esta linea: model.addRow(new Object[i]); por las siguiente:
+                model.addRow(new Object[model.getColumnCount()]);
+
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getEmail(), i, 2);
@@ -352,7 +365,52 @@ public class ControllerImplementation implements IController, ActionListener {
                     model.setValueAt("no", i, 4);
                 }
             }
+            readAll.setController(this);
             readAll.setVisible(true);
+        }
+    }
+
+    public void handleExportToCSV() throws IOException {
+        try {
+            if (readAll == null) {
+                throw new IOException("ReadAll view is not initialized");
+            }
+            String fileName = "people_data_" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) + ".csv";
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Export to CSV");
+            fileChooser.setSelectedFile(new File(fileName));
+
+            int userSelection = fileChooser.showSaveDialog(readAll);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                if (!fileToSave.getName().toLowerCase().endsWith(".csv")) {
+                    fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
+                }
+                if (fileToSave.exists()) {
+                    int confirm = JOptionPane.showOptionDialog(
+                            readAll,
+                            "The file already exists. Overwrite?",
+                            "Confirm Overwrite",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE,
+                            null,
+                            new Object[]{"Yes", "No"},
+                            "No");
+                    if (confirm != JOptionPane.YES_OPTION) {
+                        return;
+                    }
+                }
+                exportToCSV(fileToSave);
+                JOptionPane.showMessageDialog(readAll,
+                        "Data exported successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(readAll,
+                    "Export failed: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -360,21 +418,43 @@ public class ControllerImplementation implements IController, ActionListener {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete all registered people?", 
-        "Delete All - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             deleteAll();
         }
     }
-    
+
+    private void exportToCSV(File file) throws IOException {
+        DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
+            // Escribir encabezados
+            String[] headers = new String[model.getColumnCount()];
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                headers[i] = model.getColumnName(i);
+            }
+            writer.writeNext(headers);
+
+            // Escribir datos
+            for (int row = 0; row < model.getRowCount(); row++) {
+                String[] rowData = new String[model.getColumnCount()];
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Object value = model.getValueAt(row, col);
+                    rowData[col] = (value != null) ? value.toString() : "";
+                }
+                writer.writeNext(rowData);
+            }
+        }
+    }
+
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
