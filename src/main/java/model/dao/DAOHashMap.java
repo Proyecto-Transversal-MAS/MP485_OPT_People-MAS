@@ -3,7 +3,6 @@ package model.dao;
 import model.entity.Person;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * This class implements the IDAO interface and completes the function code
  * blocks so that they can operate with a HashMap structure. The NIF is used as

@@ -6,9 +6,9 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
-
 /**
  * Encapsulated class that defines the type of entity that will manage the application.
  * @author Fran Perez
@@ -20,6 +20,8 @@ public class Person implements Serializable{
     @Id 
     private String nif;
     private String name;
+    private String email;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     @Transient
     private ImageIcon photo;
@@ -42,10 +44,14 @@ public class Person implements Serializable{
      * Constructor with mandatory data.
      * @author Fran Perez
      * @version 1.0
+     * @param name
+     * @param nif
+     * @param email
      */
-    public Person(String name, String nif) {
+    public Person(String name, String nif, String email) {
         this.name = name;
         this.nif = nif;
+        this.email = email;
     }
 
     /**
@@ -54,12 +60,14 @@ public class Person implements Serializable{
      * @version 1.0
      * @param name
      * @param nif
+     * @param email
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, String email, Date dateOfBirth, ImageIcon photo) {
         this.name = name;      
         this.nif = nif;
+        this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -104,6 +112,14 @@ public class Person implements Serializable{
     public void setPhotoOnlyJPA(byte[] photoOnlyJPA) {
         this.photoOnlyJPA = photoOnlyJPA;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
         
     /**
      * Function used to compare two Personas. There cannot be two or more people
@@ -140,13 +156,13 @@ public class Person implements Serializable{
 
     
     /**
-     * Function sed to show person's inform by console. Only for debugging 
-     * pourposes.
+     * Function set to show person's inform by console. Only for debugging 
+     * purposes.
      * @return 
      */
     @Override
     public String toString() {
-        return "Person {" + "Name = " + name + ", NIF = " + nif
+        return "Person {" + "Name = " + name + ", NIF = " + nif + ", Email = " + email
                 + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
     }
 

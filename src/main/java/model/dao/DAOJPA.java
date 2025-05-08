@@ -2,7 +2,6 @@ package model.dao;
 
 import model.entity.Person;
 import start.Routes;
-
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -26,7 +25,7 @@ import javax.swing.ImageIcon;
  */
 public class DAOJPA implements IDAO {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory(Routes.DBO.getDbServerAddress());
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory(Routes.DBO.getDbServerAddress());
 
     private byte[] imageIconToBytes(ImageIcon icon) {
         Image image = icon.getImage();

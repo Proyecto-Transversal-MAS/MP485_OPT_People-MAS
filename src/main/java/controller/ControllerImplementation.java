@@ -7,7 +7,6 @@ import model.dao.DAOFile;
 import model.dao.DAOFileSerializable;
 import model.dao.DAOHashMap;
 import model.dao.DAOJPA;
-import model.dao.DAOSQL;
 import model.dao.IDAO;
 import start.Routes;
 import view.DataStorageSelection;
@@ -22,26 +21,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.dao.DAOSQL;
 import org.jdatepicker.DateModel;
-import com.opencsv.CSVWriter;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -124,24 +119,13 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case utils.Constants.ARRAYLIST_SELECTED:
-                dao = new DAOArrayList();
-                break;
-            case utils.Constants.HASHMAP_SELECTED:
-                dao = new DAOHashMap();
-                break;
-            case utils.Constants.FILE_SELECTED:
-                setupFileStorage();
-                break;
-            case utils.Constants.FILE_SERIALIZATION_SELECTED:
-                setupFileSerialization();
-                break;
-            case utils.Constants.SQL_DATABASE_SELECTED:
-                setupSQLDatabase();
-                break;
-            case utils.Constants.JPA_DATABASE_SELECTED:
-                setupJPADatabase();
-                break;
+            case utils.Constants.ARRAYLIST_SELECTED -> dao = new DAOArrayList();
+            case utils.Constants.HASHMAP_SELECTED -> dao = new DAOHashMap();
+            case utils.Constants.FILE_SELECTED -> setupFileStorage();
+            case utils.Constants.FILE_SERIALIZATION_SELECTED -> setupFileSerialization();
+            case utils.Constants.SQL_DATABASE_SELECTED -> setupSQLDatabase();
+            case utils.Constants.JPA_DATABASE_SELECTED -> setupJPADatabase();
+
         }
         setupMenu();
     }
@@ -188,13 +172,14 @@ public class ControllerImplementation implements IController, ActionListener {
                 stmt.executeUpdate("create table if not exists " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + "("
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
+                        + "email varchar(50), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
                 conn.close();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created. Closing application.", "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created. Closing application.\n" + ex.getMessage(), "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         dao = new DAOSQL();
@@ -207,7 +192,7 @@ public class ControllerImplementation implements IController, ActionListener {
             em.close();
             emf.close();
         } catch (PersistenceException ex) {
-            JOptionPane.showMessageDialog(dSS, "JPA_DDBB not created. Closing application.", "JPA_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dSS, "JPA_DDBB not created. Closing application.\n" + ex.getMessage(), "JPA_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         dao = new DAOJPA();
@@ -231,15 +216,20 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        insert(p);
-        insert.getReset().doClick();
+        if (insert.getCheck().isSelected()) {
+            insert(p);
+            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
+            insert.getReset().doClick();   
+        } else {
+            JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void handleReadAction() {
@@ -253,6 +243,7 @@ public class ControllerImplementation implements IController, ActionListener {
         Person pNew = read(p);
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
+            read.getEmail().setText(pNew.getEmail());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -297,10 +288,12 @@ public class ControllerImplementation implements IController, ActionListener {
             Person pNew = read(p);
             if (pNew != null) {
                 update.getNam().setEnabled(true);
+                update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
+                update.getEmail().setText(pNew.getEmail());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -321,94 +314,46 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
             if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
-            update(p);
-            update.getReset().doClick();
+            if (update.getCheck().isSelected()) {
+                update(p);
+                update.getReset().doClick();   
+            } else {
+                JOptionPane.showMessageDialog(update, "Email is not valid, use the box next to the email field to validate the email before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
     public void handleReadAll() {
         ArrayList<Person> s = readAll();
-
         if (s.isEmpty()) {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
-
         } else {
             readAll = new ReadAll(menu, true);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
-
-            // limpiamos tabla por si tiene datos previos
-            model.setRowCount(0);
-
             for (int i = 0; i < s.size(); i++) {
-                // cambiamos esta linea: model.addRow(new Object[i]); por las siguiente:
-                model.addRow(new Object[model.getColumnCount()]);
-
+                model.addRow(new Object[i]);
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
+                model.setValueAt(s.get(i).getEmail(), i, 2);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 2);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
                 } else {
-                    model.setValueAt("", i, 2);
+                    model.setValueAt("", i, 3);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 3);
+                    model.setValueAt("yes", i, 4);
                 } else {
-                    model.setValueAt("no", i, 3);
+                    model.setValueAt("no", i, 4);
                 }
             }
-            readAll.setController(this);
             readAll.setVisible(true);
-        }
-    }
-
-    public void handleExportToCSV() throws IOException {
-        try {
-            if (readAll == null) {
-                throw new IOException("ReadAll view is not initialized");
-            }
-            String fileName = "people_data_" + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) + ".csv";
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Export to CSV");
-            fileChooser.setSelectedFile(new File(fileName));
-
-            int userSelection = fileChooser.showSaveDialog(readAll);
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                File fileToSave = fileChooser.getSelectedFile();
-                if (!fileToSave.getName().toLowerCase().endsWith(".csv")) {
-                    fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
-                }
-                if (fileToSave.exists()) {
-                    int confirm = JOptionPane.showOptionDialog(
-                            readAll,
-                            "The file already exists. Overwrite?",
-                            "Confirm Overwrite",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE,
-                            null,
-                            new Object[]{"Yes", "No"},
-                            "No");
-                    if (confirm != JOptionPane.YES_OPTION) {
-                        return;
-                    }
-                }
-                exportToCSV(fileToSave);
-                JOptionPane.showMessageDialog(readAll,
-                        "Data exported successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(readAll,
-                    "Export failed: " + ex.getMessage(),
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -416,43 +361,21 @@ public class ControllerImplementation implements IController, ActionListener {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-                menu,
-                "Are you sure you want to delete all registered people?",
-                "Delete All - People v1.1.0",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                null,
-                options,
-                options[1] // Default selection is "No"
-        );
+        menu,
+        "Are you sure you want to delete all registered people?", 
+        "Delete All - People v1.1.0",
+        JOptionPane.YES_NO_OPTION,
+        JOptionPane.WARNING_MESSAGE,
+        null,
+        options,
+        options[1] // Default selection is "No"
+    );
 
         if (answer == 0) {
             deleteAll();
         }
     }
-
-    private void exportToCSV(File file) throws IOException {
-        DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
-        try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
-            // Escribir encabezados
-            String[] headers = new String[model.getColumnCount()];
-            for (int i = 0; i < model.getColumnCount(); i++) {
-                headers[i] = model.getColumnName(i);
-            }
-            writer.writeNext(headers);
-
-            // Escribir datos
-            for (int row = 0; row < model.getRowCount(); row++) {
-                String[] rowData = new String[model.getColumnCount()];
-                for (int col = 0; col < model.getColumnCount(); col++) {
-                    Object value = model.getValueAt(row, col);
-                    rowData[col] = (value != null) ? value.toString() : "";
-                }
-                writer.writeNext(rowData);
-            }
-        }
-    }
-
+    
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
@@ -486,7 +409,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     /**
      * This function updates the Person object with the requested NIF, if it
-     * doesn't exist. NIF can not be aupdated. If there is any access problem
+     * doesn't exist. NIF can not be updated. If there is any access problem
      * with the storage device, the program stops.
      *
      * @param p Person to update
