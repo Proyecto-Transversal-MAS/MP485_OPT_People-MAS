@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 /**
  * This class implements the IDAO interface and completes the code of the
  * functions so that they can work with files. User data is saved in the

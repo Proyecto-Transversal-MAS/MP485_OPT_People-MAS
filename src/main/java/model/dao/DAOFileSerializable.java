@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-
 /**
  * This class implements the IDAO interface and completes the code of the
  * functions so that they can work with files to store objects. User data is

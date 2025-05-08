@@ -15,7 +15,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FilenameUtils;
-
 /**
  * @author Francesc Perez
  * @version 1.1.0

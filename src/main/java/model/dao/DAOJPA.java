@@ -2,7 +2,6 @@ package model.dao;
 
 import model.entity.Person;
 import start.Routes;
-
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;

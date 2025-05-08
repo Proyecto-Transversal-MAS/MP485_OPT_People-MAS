@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
-
 /**
  * Interface used to read a person. It is mandatory to enter the NIF.
  * @author Francesc Perez

@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 /**
  * Interface used to delete a person. It is mandatory to enter the NIF.
  * @author Francesc Perez

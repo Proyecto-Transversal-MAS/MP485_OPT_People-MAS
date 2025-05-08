@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import static utils.DataValidation.checkEmailAddress;
-
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
  * @author Francesc Perez

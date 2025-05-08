@@ -9,7 +9,6 @@ import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
-
 /**
  * Encapsulated class that defines the type of entity that will manage the application.
  * @author Fran Perez

@@ -2,7 +2,6 @@ package view;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-
 /**
  * Interface used to read all persons.
  * @author Francesc Perez

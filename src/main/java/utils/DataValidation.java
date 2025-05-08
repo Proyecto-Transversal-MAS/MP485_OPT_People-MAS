@@ -4,7 +4,6 @@
  */
 package utils;
 import java.util.regex.Pattern;
-
 /**
  * @author Francesc Perez 
  * @version 1.1.0
