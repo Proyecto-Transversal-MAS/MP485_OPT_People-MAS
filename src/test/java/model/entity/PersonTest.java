@@ -1,19 +1,26 @@
 package model.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import javax.swing.ImageIcon;
 import java.util.Date;
+//import model.entity.Person;
 
 class PersonTest {
 
     private Person person;
     private Person personWithFullData;
-    private final String nif = "12345678X";
-    private final String name = "John Doe";
-    private final String email = "johndoe@example.com";
-    private final Date dateOfBirth = new Date();
-    private final ImageIcon photo = new ImageIcon();
+    private String nif = "12345678X";
+    private String name = "John Doe";
+    private Date dateOfBirth = new Date();
+    private ImageIcon photo = new ImageIcon();
+
+    @BeforeEach
+    void setUp() {
+        person = new Person(nif);
+        personWithFullData = new Person(name, nif, dateOfBirth, photo);
+    }
 
     @Test
     void testConstructorNifOnly() {
@@ -25,17 +32,15 @@ class PersonTest {
 
     @Test
     void testConstructorNameAndNif() {
-        Person personWithNameNifAndEmail = new Person(name, nif, email);
-        assertEquals(name, personWithNameNifAndEmail.getName());
-        assertEquals(nif, personWithNameNifAndEmail.getNif());
-        assertEquals(nif, personWithNameNifAndEmail.getEmail());
+        Person personWithNameAndNif = new Person(name, nif);
+        assertEquals(name, personWithNameAndNif.getName());
+        assertEquals(nif, personWithNameAndNif.getNif());
     }
 
     @Test
     void testConstructorFullData() {
         assertEquals(name, personWithFullData.getName());
         assertEquals(nif, personWithFullData.getNif());
-        assertEquals(email, personWithFullData.getEmail());
         assertEquals(dateOfBirth, personWithFullData.getDateOfBirth());
         assertEquals(photo, personWithFullData.getPhoto());
     }
@@ -70,6 +75,12 @@ class PersonTest {
 
         Person differentPerson = new Person("98765432Z");
         assertFalse(person.equals(differentPerson));
+    }
+
+    @Test
+    void testEqualsNullAndDifferentClass() {
+        assertFalse(person.equals(null));
+        assertFalse(person.equals("not a Person"));
     }
 
     @Test
