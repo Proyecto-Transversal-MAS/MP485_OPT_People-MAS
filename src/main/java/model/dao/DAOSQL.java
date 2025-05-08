@@ -33,8 +33,8 @@ public class DAOSQL implements IDAO {
 
     private final String SQL_SELECT_ALL = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + ";";
     private final String SQL_SELECT = "SELECT * FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ?);";
-    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, dateOfBirth, photo) VALUES (?, ?, ?, ?);";
-    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, dateOfBirth = ?, photo = ? WHERE (nif = ?);";
+    private final String SQL_INSERT = "INSERT INTO " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " (nif, name, email, dateOfBirth, photo) VALUES (?, ?, ?, ?, ?);";
+    private final String SQL_UPDATE = "UPDATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " SET name = ?, email = ?, dateOfBirth = ?, photo = ? WHERE (nif = ?);";
     private final String SQL_DELETE = "DELETE FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE() + " WHERE (nif = ";
     private final String SQL_DELETE_ALL = "TRUNCATE " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE();
 
@@ -143,8 +143,8 @@ public class DAOSQL implements IDAO {
             out = new FileOutputStream(photo);
             outB = new BufferedOutputStream(out);
             BufferedImage bi = new BufferedImage(p.getPhoto().getImage().getWidth(null),
-                    p.getPhoto().getImage().getHeight(null),
-                    BufferedImage.TYPE_INT_ARGB);
+                p.getPhoto().getImage().getHeight(null),
+                BufferedImage.TYPE_INT_ARGB);
             bi.getGraphics().drawImage(p.getPhoto().getImage(), 0, 0, null);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bi, "png", baos);
@@ -200,7 +200,7 @@ public class DAOSQL implements IDAO {
                     + ".png");
             photoFile.delete();
         }
-        instruction.setString(4, p.getNif());
+        instruction.setString(5, p.getNif());
         instruction.executeUpdate();
         instruction.close();
         disconnect(conn);

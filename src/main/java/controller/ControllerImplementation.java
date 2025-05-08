@@ -178,7 +178,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 conn.close();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created. Closing application.", "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created. Closing application.\n" + ex.getMessage(), "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         dao = new DAOSQL();
@@ -191,7 +191,7 @@ public class ControllerImplementation implements IController, ActionListener {
             em.close();
             emf.close();
         } catch (PersistenceException ex) {
-            JOptionPane.showMessageDialog(dSS, "JPA_DDBB not created. Closing application.", "JPA_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dSS, "JPA_DDBB not created. Closing application.\n" + ex.getMessage(), "JPA_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         dao = new DAOJPA();
