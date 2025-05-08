@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package utils;
+import java.util.regex.Pattern;
 
 /**
  * @author Francesc Perez 
@@ -25,6 +26,16 @@ public class DataValidation {
         String [] letter = {"T","R","W","A","G","M","Y","F","P","D","X","B",
             "N","J","Z","S","Q","V","H","L","C","K","E"};
         return nifNoLetter + letter[Integer.parseInt(nifNoLetter)%23];
+    }
+    
+    public static boolean checkEmailAddress(String email) {
+        String emailRegex = "^(?=.{1,64}@)[\\p{L}0-9_-]+(\\.[\\p{L}0-9_-]+)*@" 
+        + "[^-][\\p{L}0-9-]+(\\.[\\p{L}0-9-]+)*(\\.[\\p{L}]{2,})$";
+        Pattern p = Pattern.compile(emailRegex);
+        if (email == null) {
+            return false;
+        }
+        return p.matcher(email).matches();
     }
 
 }
