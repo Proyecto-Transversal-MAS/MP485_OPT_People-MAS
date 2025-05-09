@@ -21,6 +21,7 @@ public class Person implements Serializable{
     private String nif;
     private String name;
     private String email;
+    private String phone;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     @Transient
@@ -47,11 +48,13 @@ public class Person implements Serializable{
      * @param name
      * @param nif
      * @param email
+     * @param phone
      */
-    public Person(String name, String nif, String email) {
+    public Person(String name, String nif, String email, String phone) {
         this.name = name;
         this.nif = nif;
         this.email = email;
+        this.phone = phone;
     }
 
     /**
@@ -64,10 +67,11 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, String email, Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, String email, String phone, Date dateOfBirth, ImageIcon photo) {
         this.name = name;      
         this.nif = nif;
         this.email = email;
+        this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -117,6 +121,14 @@ public class Person implements Serializable{
         return email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -162,7 +174,7 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        return "Name: " + name + "\nNIF: " + nif + "\nEmail: " + email
+        return "Name: " + name + "\nNIF: " + nif + "\nEmail: " + email + "\nPhone:" + phone
                 + "\nDate of Birth: " + dateOfBirth + "\nPhoto: " + (photo!=null) + "\n\n";
     }
 
