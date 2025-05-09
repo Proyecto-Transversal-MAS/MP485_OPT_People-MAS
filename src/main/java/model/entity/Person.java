@@ -174,8 +174,8 @@ public class Person implements Serializable{
      */
     @Override
     public String toString() {
-        return "Person {" + "Name = " + name + ", NIF = " + nif + ", Email = " + email 
-                + ", Phone = " + phone + ", DateOfBirth = " + dateOfBirth + ", Photo = " + (photo!=null) + "}";
+        return "Name: " + name + "\nNIF: " + nif + "\nEmail: " + email + "\nPhone:" + phone
+                + "\nDate of Birth: " + dateOfBirth + "\nPhoto: " + (photo!=null) + "\n\n";
     }
 
 }
