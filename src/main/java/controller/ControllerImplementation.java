@@ -207,6 +207,7 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDelete().addActionListener(this);
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
+        menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
     }
 
     private void handleInsertAction() {
@@ -225,6 +226,7 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         if (insert.getCheck().isSelected()) {
             insert(p);
+            this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
             JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
             insert.getReset().doClick();   
         } else {
@@ -271,6 +273,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (delete != null) {
             Person p = new Person(delete.getNif().getText());
             delete(p);
+            this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
             delete.getReset().doClick();
         }
     }
@@ -373,6 +376,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
         if (answer == 0) {
             deleteAll();
+            this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
         }
     }
     
