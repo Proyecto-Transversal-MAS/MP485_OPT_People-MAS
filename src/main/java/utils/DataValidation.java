@@ -36,5 +36,14 @@ public class DataValidation {
         }
         return p.matcher(email).matches();
     }
-
+    
+    public static boolean checkPhoneNumber(String phone) {
+        String phoneRegex = "^\\+?[0-9]{1,4}?[-.\\s]?(\\d{1,3})?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$";
+        Pattern p = Pattern.compile(phoneRegex);
+        if (phone == null) {
+            return false;
+        }
+        return p.matcher(phone).matches();
+    }
+    
 }

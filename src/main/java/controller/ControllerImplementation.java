@@ -119,12 +119,18 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case utils.Constants.ARRAYLIST_SELECTED -> dao = new DAOArrayList();
-            case utils.Constants.HASHMAP_SELECTED -> dao = new DAOHashMap();
-            case utils.Constants.FILE_SELECTED -> setupFileStorage();
-            case utils.Constants.FILE_SERIALIZATION_SELECTED -> setupFileSerialization();
-            case utils.Constants.SQL_DATABASE_SELECTED -> setupSQLDatabase();
-            case utils.Constants.JPA_DATABASE_SELECTED -> setupJPADatabase();
+            case utils.Constants.ARRAYLIST_SELECTED ->
+                dao = new DAOArrayList();
+            case utils.Constants.HASHMAP_SELECTED ->
+                dao = new DAOHashMap();
+            case utils.Constants.FILE_SELECTED ->
+                setupFileStorage();
+            case utils.Constants.FILE_SERIALIZATION_SELECTED ->
+                setupFileSerialization();
+            case utils.Constants.SQL_DATABASE_SELECTED ->
+                setupSQLDatabase();
+            case utils.Constants.JPA_DATABASE_SELECTED ->
+                setupJPADatabase();
 
         }
         setupMenu();
@@ -216,7 +222,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText(), insert.getPhone().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
@@ -226,7 +232,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getCheck().isSelected()) {
             insert(p);
             JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
-            insert.getReset().doClick();   
+            insert.getReset().doClick();
         } else {
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
@@ -314,7 +320,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText(), update.getPhone().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -323,7 +329,7 @@ public class ControllerImplementation implements IController, ActionListener {
             }
             if (update.getCheck().isSelected()) {
                 update(p);
-                update.getReset().doClick();   
+                update.getReset().doClick();
             } else {
                 JOptionPane.showMessageDialog(update, "Email is not valid, use the box next to the email field to validate the email before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
@@ -342,15 +348,16 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getEmail(), i, 2);
+                model.setValueAt(s.get(i).getPhone(), i, 3);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 4);
                 } else {
-                    model.setValueAt("", i, 3);
+                    model.setValueAt("", i, 4);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 4);
+                    model.setValueAt("yes", i, 5);
                 } else {
-                    model.setValueAt("no", i, 4);
+                    model.setValueAt("no", i, 5);
                 }
             }
             readAll.setVisible(true);
@@ -361,21 +368,21 @@ public class ControllerImplementation implements IController, ActionListener {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete all registered people?", 
-        "Delete All - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             deleteAll();
         }
     }
-    
+
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
