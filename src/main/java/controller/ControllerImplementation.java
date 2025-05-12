@@ -231,21 +231,15 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        if (insert.getCheck().isSelected()) {
+        if (insert.getCheck().isSelected() && insert.getPhoneCheck().isSelected()) {
             insert(p);
             this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
             JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
             insert.getReset().doClick();
-        if (insert.getPhoneCheck().isSelected()) {
-            insert(p);
-            this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
-            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
-            insert.getReset().doClick();
-        } else {
+        } else if (!insert.getCheck().isSelected()){
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
-        }
-        } else {
-            JOptionPane.showMessageDialog(insert, "Phone is not valid, use the box next to the phone field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else if (!insert.getPhoneCheck().isSelected()) {
+            JOptionPane.showMessageDialog(insert, "Phone number is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 

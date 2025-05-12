@@ -449,6 +449,7 @@ public class Update extends javax.swing.JDialog {
         nif.setText("");
         name.setText("");
         email.setText("");
+        phone.setText("");
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null); 
         name.setEnabled(false);
@@ -466,6 +467,9 @@ public class Update extends javax.swing.JDialog {
         dateOfBirth.getModel().setValue(null);
         dateOfBirth.setEnabled(false);
         update.setEnabled(false);
+        // We reset the phone and email checks
+        EmailIsValidCheck.setSelected(false);
+        PhoneValidCheck.setSelected(false);
     }//GEN-LAST:event_resetActionPerformed
 
     private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
