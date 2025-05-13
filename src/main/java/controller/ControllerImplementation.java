@@ -336,16 +336,12 @@ public class ControllerImplementation implements IController, ActionListener {
             if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
-            if (update.getCheck().isSelected()) {
+            if (update.getCheck().isSelected() && update.getPhoneCheck().isSelected()) {
                 update(p);
-                update.getReset().doClick();
-            if (update.getPhoneCheck().isSelected()) {
-                update(p);
-                update.getReset().doClick();    
-            } else {
+                update.getReset().doClick();  
+            } else if (!insert.getCheck().isSelected()) {
                 JOptionPane.showMessageDialog(update, "Email is not valid, use the box next to the email field to validate the email before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
-            }
-            } else {
+            } else if (!insert.getPhoneCheck().isSelected()){
                 JOptionPane.showMessageDialog(update, "Phone is not valid, use the box next to the phone field to validate the phone number before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
         }
