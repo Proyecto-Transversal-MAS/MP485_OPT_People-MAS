@@ -65,6 +65,10 @@ public class Read extends javax.swing.JDialog {
     public void setReset(JButton reset) {
         this.reset = reset;
     }
+    
+     public JTextField getPhone() {
+        return phone;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

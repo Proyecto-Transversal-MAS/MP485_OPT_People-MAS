@@ -179,6 +179,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "email varchar(50), "
+                        + "phone varchar(50), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -230,13 +231,15 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        if (insert.getCheck().isSelected()) {
+        if (insert.getCheck().isSelected() && insert.getPhoneCheck().isSelected()) {
             insert(p);
             this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
             JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
             insert.getReset().doClick();
-        } else {
+        } else if (!insert.getCheck().isSelected()){
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else if (!insert.getPhoneCheck().isSelected()) {
+            JOptionPane.showMessageDialog(insert, "Phone number is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -252,6 +255,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
             read.getEmail().setText(pNew.getEmail());
+            read.getPhone().setText(pNew.getPhone());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -300,9 +304,11 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getEmail().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
+                update.getPhone().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
                 update.getEmail().setText(pNew.getEmail());
+                update.getPhone().setText(pNew.getPhone());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -330,11 +336,13 @@ public class ControllerImplementation implements IController, ActionListener {
             if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
-            if (update.getCheck().isSelected()) {
+            if (update.getCheck().isSelected() && update.getPhoneCheck().isSelected()) {
                 update(p);
-                update.getReset().doClick();
-            } else {
+                update.getReset().doClick();  
+            } else if (!insert.getCheck().isSelected()) {
                 JOptionPane.showMessageDialog(update, "Email is not valid, use the box next to the email field to validate the email before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
+            } else if (!insert.getPhoneCheck().isSelected()){
+                JOptionPane.showMessageDialog(update, "Phone is not valid, use the box next to the phone field to validate the phone number before inserting.", update.getTitle(), JOptionPane.ERROR_MESSAGE);
             }
         }
     }
