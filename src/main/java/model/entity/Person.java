@@ -9,19 +9,23 @@ import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
+
 /**
- * Encapsulated class that defines the type of entity that will manage the application.
+ * Encapsulated class that defines the type of entity that will manage the
+ * application.
+ *
  * @author Fran Perez
  * @version 1.1.0
  */
 @Entity
-public class Person implements Serializable{
+public class Person implements Serializable {
 
-    @Id 
+    @Id
     private String nif;
     private String name;
     private String email;
     private String phone;
+    private String zipCode;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     @Transient
@@ -29,20 +33,22 @@ public class Person implements Serializable{
     @Lob
     private byte[] photoOnlyJPA;
 
-    public Person(){
-        
+    public Person() {
+
     }
-    
+
     /**
      * Constructor to validate new person. Two persons cannot have the same NIF
-     * @param nif 
+     *
+     * @param nif
      */
     public Person(String nif) {
         this.nif = nif;
     }
-    
+
     /**
      * Constructor with mandatory data.
+     *
      * @author Fran Perez
      * @version 1.0
      * @param name
@@ -50,15 +56,17 @@ public class Person implements Serializable{
      * @param email
      * @param phone
      */
-    public Person(String name, String nif, String email, String phone) {
+    public Person(String name, String nif, String email, String phone, String zipCode) {
         this.name = name;
         this.nif = nif;
         this.email = email;
         this.phone = phone;
+        this.zipCode = zipCode;
     }
 
     /**
      * Constructor with all data
+     *
      * @author Fran Perez
      * @version 1.0
      * @param name
@@ -67,11 +75,12 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, String email, String phone, Date dateOfBirth, ImageIcon photo) {
-        this.name = name;      
+    public Person(String name, String nif, String email, String phone, String zipCode, Date dateOfBirth, ImageIcon photo) {
+        this.name = name;
         this.nif = nif;
         this.email = email;
         this.phone = phone;
+        this.zipCode = zipCode;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -121,6 +130,10 @@ public class Person implements Serializable{
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -129,14 +142,19 @@ public class Person implements Serializable{
         this.phone = phone;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getZipCode() {
+        return zipCode;
     }
-        
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.
-     * @return 
+     *
+     * @return
      */
     @Override
     public int hashCode() {
@@ -146,10 +164,11 @@ public class Person implements Serializable{
     }
 
     /**
-     * Function used to compare two Personas in ArrayList and HashMap 
+     * Function used to compare two Personas in ArrayList and HashMap
      * structures. There cannot be two or more people with the same ID.
+     *
      * @param obj
-     * @return 
+     * @return
      */
     @Override
     public boolean equals(Object obj) {
@@ -166,16 +185,16 @@ public class Person implements Serializable{
         return Objects.equals(this.hashCode(), other.hashCode());
     }
 
-    
     /**
-     * Function set to show person's inform by console. Only for debugging 
+     * Function set to show person's inform by console. Only for debugging xxx*
      * purposes.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
-        return "Name: " + name + "\nNIF: " + nif + "\nEmail: " + email + "\nPhone:" + phone
-                + "\nDate of Birth: " + dateOfBirth + "\nPhoto: " + (photo!=null) + "\n\n";
+        return "Name: " + name + "\nNIF: " + nif + "\nEmail: " + email + "\nPhone:" + phone + "\nZipCode:" + zipCode
+                + "\nDate of Birth: " + dateOfBirth + "\nPhoto: " + (photo != null) + "\n\n";
     }
 
 }
