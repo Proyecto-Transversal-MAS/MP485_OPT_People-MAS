@@ -180,6 +180,7 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "name varchar(50), "
                         + "email varchar(50), "
                         + "phone varchar(50), "
+                        + "zipcode varchar(10), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -234,12 +235,14 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getCheck().isSelected() && insert.getPhoneCheck().isSelected()) {
             insert(p);
             this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
-            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);;
+            JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
             insert.getReset().doClick();
         } else if (!insert.getCheck().isSelected()){
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else if (!insert.getPhoneCheck().isSelected()) {
             JOptionPane.showMessageDialog(insert, "Phone number is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else if (!insert.getZipCodeCheck().isSelected()) {
+            JOptionPane.showMessageDialog(insert, "Zip code is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -256,6 +259,7 @@ public class ControllerImplementation implements IController, ActionListener {
             read.getNam().setText(pNew.getName());
             read.getEmail().setText(pNew.getEmail());
             read.getPhone().setText(pNew.getPhone());
+            read.getZipCode().setText(pNew.getZipCode());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -305,10 +309,12 @@ public class ControllerImplementation implements IController, ActionListener {
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getPhone().setEnabled(true);
+                update.getZipCode().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
                 update.getEmail().setText(pNew.getEmail());
                 update.getPhone().setText(pNew.getPhone());
+                update.getZipCode().setText(pNew.getZipCode());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -329,7 +335,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText(), update.getPhone().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getEmail().getText(), update.getPhone().getText(), update.getZipCode().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -362,15 +368,16 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getEmail(), i, 2);
                 model.setValueAt(s.get(i).getPhone(), i, 3);
+                model.setValueAt(s.get(i).getZipCode(), i, 4);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 4);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 5);
                 } else {
-                    model.setValueAt("", i, 4);
+                    model.setValueAt("", i, 5);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 5);
+                    model.setValueAt("yes", i, 6);
                 } else {
-                    model.setValueAt("no", i, 5);
+                    model.setValueAt("no", i, 6);
                 }
             }
             readAll.setVisible(true);

@@ -72,6 +72,8 @@ public class Person implements Serializable {
      * @param name
      * @param nif
      * @param email
+     * @param phone
+     * @param zipCode
      * @param dateOfBirth
      * @param photo
      */

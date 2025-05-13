@@ -51,7 +51,7 @@ public class Read extends javax.swing.JDialog {
     }
 
     public JTextField getZipCode() {
-        return email;
+        return zipCode;
     }
 
     public JLabel getPhoto() {
@@ -341,6 +341,8 @@ public class Read extends javax.swing.JDialog {
         nif.setEditable(true);
         name.setText("");
         email.setText("");
+        phone.setText("");
+        zipCode.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();

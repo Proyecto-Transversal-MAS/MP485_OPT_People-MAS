@@ -47,13 +47,13 @@ public class DAOFile implements IDAO {
                 Date date = null;
                 if (!data[4].equals("null")) {
                     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                    date = dateFormat.parse(data[4]);
+                    date = dateFormat.parse(data[5]);
                 }
                 ImageIcon photo = null;
-                if (!data[4].equals("null")) {
-                    photo = new ImageIcon(data[5]);
+                if (!data[6].equals("null")) {
+                    photo = new ImageIcon(data[6]);
                 }
-                personToRead = new Person(data[0], data[1], data[2], data[3], date, photo);
+                personToRead = new Person(data[0], data[1], data[2], data[3], data[4], date, photo);
                 break;
             }
             line = br.readLine();
@@ -76,13 +76,13 @@ public class DAOFile implements IDAO {
             Date date = null;
             if (!data[4].equals("null")) {
                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                date = dateFormat.parse(data[4]);
+                date = dateFormat.parse(data[5]);
             }
             ImageIcon photo = null;
-            if (!data[5].equals("null")) {
-                photo = new ImageIcon(data[5]);
+            if (!data[6].equals("null")) {
+                photo = new ImageIcon(data[6]);
             }
-            people.add(new Person(data[0], data[1], data[2], data[3], date, photo));
+            people.add(new Person(data[0], data[1], data[2], data[3], data[4], date, photo));
             line = br.readLine();
         }
         br.close();
