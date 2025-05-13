@@ -224,7 +224,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText(), insert.getPhone().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getEmail().getText(), insert.getPhone().getText(), insert.getZipCode().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }

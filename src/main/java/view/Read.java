@@ -15,8 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+
 /**
  * Interface used to read a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -43,8 +45,12 @@ public class Read extends javax.swing.JDialog {
     public JTextField getNif() {
         return nif;
     }
-    
+
     public JTextField getEmail() {
+        return email;
+    }
+
+    public JTextField getZipCode() {
         return email;
     }
 
@@ -88,6 +94,8 @@ public class Read extends javax.swing.JDialog {
         email = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         phone = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        zipCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Read - People v1.1.0");
@@ -102,7 +110,7 @@ public class Read extends javax.swing.JDialog {
         read.setPreferredSize(new java.awt.Dimension(187, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(19, 25, 0, 0);
         getContentPane().add(read, gridBagConstraints);
@@ -152,7 +160,7 @@ public class Read extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 6;
+        gridBagConstraints.gridheight = 7;
         gridBagConstraints.ipady = 36;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(40, 40, 0, 0);
@@ -190,7 +198,7 @@ public class Read extends javax.swing.JDialog {
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(22, 25, 0, 0);
         getContentPane().add(jLabel8, gridBagConstraints);
@@ -201,7 +209,7 @@ public class Read extends javax.swing.JDialog {
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 6;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -213,7 +221,7 @@ public class Read extends javax.swing.JDialog {
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.ipadx = 543;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -232,7 +240,7 @@ public class Read extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -272,8 +280,7 @@ public class Read extends javax.swing.JDialog {
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
@@ -285,13 +292,38 @@ public class Read extends javax.swing.JDialog {
         phone.setPreferredSize(new java.awt.Dimension(400, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
         getContentPane().add(phone, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("ZIP Code");
+        jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
+        getContentPane().add(jLabel6, gridBagConstraints);
+
+        zipCode.setEnabled(false);
+        zipCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        zipCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        zipCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+        getContentPane().add(zipCode, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -348,6 +380,7 @@ public class Read extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
@@ -355,5 +388,6 @@ public class Read extends javax.swing.JDialog {
     private javax.swing.JLabel photo;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
+    private javax.swing.JTextField zipCode;
     // End of variables declaration//GEN-END:variables
 }

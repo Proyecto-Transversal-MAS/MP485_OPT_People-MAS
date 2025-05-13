@@ -20,8 +20,11 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import static utils.DataValidation.checkEmailAddress;
 import static utils.DataValidation.checkPhoneNumber;
+import static utils.DataValidation.checkZipCode;
+
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -68,18 +71,27 @@ public class Update extends javax.swing.JDialog {
     public JTextField getEmail() {
         return email;
     }
-    
+
     public JCheckBox getCheck() {
         return EmailIsValidCheck;
     }
-    
+
     public JTextField getPhone() {
         return phone;
     }
-    
+
     public JCheckBox getPhoneCheck() {
         return PhoneValidCheck;
     }
+
+    public JTextField getZipCode() {
+        return zipCode;
+    }
+
+    public JCheckBox getZipCodeCheck() {
+        return ZipCodeValidCheck;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,6 +121,10 @@ public class Update extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         checkPhoneField = new javax.swing.JButton();
         PhoneValidCheck = new javax.swing.JCheckBox();
+        zipCode = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        checkZipCodeField = new javax.swing.JButton();
+        ZipCodeValidCheck = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -122,7 +138,7 @@ public class Update extends javax.swing.JDialog {
         update.setPreferredSize(new java.awt.Dimension(194, 33));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(17, 24, 0, 0);
         getContentPane().add(update, gridBagConstraints);
@@ -179,9 +195,8 @@ public class Update extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 8;
+        gridBagConstraints.gridheight = 23;
         gridBagConstraints.ipady = 36;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(30, 20, 0, 0);
         getContentPane().add(photo, gridBagConstraints);
 
@@ -226,7 +241,7 @@ public class Update extends javax.swing.JDialog {
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 22;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(19, 24, 0, 0);
         getContentPane().add(jLabel8, gridBagConstraints);
@@ -237,7 +252,7 @@ public class Update extends javax.swing.JDialog {
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 22;
         gridBagConstraints.gridwidth = 11;
         gridBagConstraints.ipadx = 211;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -256,7 +271,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(17, 24, 0, 0);
         getContentPane().add(reset, gridBagConstraints);
@@ -266,7 +281,7 @@ public class Update extends javax.swing.JDialog {
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 26;
         gridBagConstraints.gridwidth = 14;
         gridBagConstraints.ipadx = 716;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -276,7 +291,7 @@ public class Update extends javax.swing.JDialog {
         read.setText("readnoVisible");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 24;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipady = 22;
@@ -358,7 +373,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -374,14 +389,13 @@ public class Update extends javax.swing.JDialog {
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
         getContentPane().add(jLabel5, gridBagConstraints);
 
-        checkPhoneField.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkPhoneField.setText("CHECK");
         checkPhoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,7 +404,7 @@ public class Update extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
@@ -401,30 +415,90 @@ public class Update extends javax.swing.JDialog {
         PhoneValidCheck.setRequestFocusEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 13;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipady = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(16, 6, 0, 0);
         getContentPane().add(PhoneValidCheck, gridBagConstraints);
 
+        zipCode.setEnabled(false);
+        zipCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        zipCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        zipCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        zipCode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                zipCodeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                zipCodeKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 21;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 55;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
+        getContentPane().add(zipCode, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("ZIP Code");
+        jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 21;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
+        getContentPane().add(jLabel6, gridBagConstraints);
+
+        checkZipCodeField.setText("CHECK");
+        checkZipCodeField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkZipCodeFieldActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 21;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
+        getContentPane().add(checkZipCodeField, gridBagConstraints);
+
+        ZipCodeValidCheck.setEnabled(false);
+        ZipCodeValidCheck.setFocusable(false);
+        ZipCodeValidCheck.setRequestFocusEnabled(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 21;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipady = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(16, 6, 0, 0);
+        getContentPane().add(ZipCodeValidCheck, gridBagConstraints);
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void showUpdate() {
-        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && !zipCode.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
             update.setEnabled(true);
         } else {
             update.setEnabled(false);
         }
     }
-    
+
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
         if (nif.getText().length() == 8) {
             evt.consume();
             nif.setText(calculateNifLetter(nif.getText()));
-            nif.setEditable(false);  
+            nif.setEditable(false);
             read.doClick();
         }
     }//GEN-LAST:event_nifKeyPressed
@@ -451,7 +525,7 @@ public class Update extends javax.swing.JDialog {
         email.setText("");
         phone.setText("");
         dateOfBirth.getModel().setValue(null);
-        photo.setIcon(null); 
+        photo.setIcon(null);
         name.setEnabled(false);
         photo.setEnabled(false);
         //We reset the calendar date to the current date ...
@@ -538,13 +612,37 @@ public class Update extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_checkPhoneFieldActionPerformed
 
-    
+    private void zipCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_zipCodeKeyReleased
+
+    private void zipCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_zipCodeKeyTyped
+
+    private void checkZipCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkZipCodeFieldActionPerformed
+        if (!checkZipCode(zipCode.getText()) && zipCode.getText().length() == 5) {
+            JOptionPane.showMessageDialog(this, "Please introduce the ZIP Code first before checking for validity.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            ZipCodeValidCheck.setSelected(false);
+        } else {
+            if (!checkZipCode(zipCode.getText())) {
+                JOptionPane.showMessageDialog(this, "ZIP Code is not valid, remember, type only numbers, do not leave trailing whitespaces.\nZipCode, must be 5 digits.\n\nA phone number should look like this '80000'", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                ZipCodeValidCheck.setSelected(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "ZIP Code specified is valid.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+                ZipCodeValidCheck.setSelected(true);
+            }
+        }
+    }//GEN-LAST:event_checkZipCodeFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox EmailIsValidCheck;
     private javax.swing.JCheckBox PhoneValidCheck;
+    private javax.swing.JCheckBox ZipCodeValidCheck;
     private javax.swing.JButton checkEmailField;
     private javax.swing.JButton checkPhoneField;
+    private javax.swing.JButton checkZipCodeField;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
@@ -552,6 +650,7 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
@@ -560,5 +659,6 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
     private javax.swing.JButton update;
+    private javax.swing.JTextField zipCode;
     // End of variables declaration//GEN-END:variables
 }
