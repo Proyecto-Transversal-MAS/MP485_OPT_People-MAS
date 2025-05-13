@@ -303,7 +303,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!phone.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);

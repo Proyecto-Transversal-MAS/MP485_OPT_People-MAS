@@ -413,7 +413,7 @@ public class Update extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showUpdate() {
-        if (!email.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
             update.setEnabled(true);
         } else {
             update.setEnabled(false);
