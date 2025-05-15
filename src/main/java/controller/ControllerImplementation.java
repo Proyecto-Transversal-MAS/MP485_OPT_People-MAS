@@ -16,6 +16,7 @@ import view.Menu;
 import view.Read;
 import view.ReadAll;
 import view.Update;
+import static utils.DataValidation.checkZipCodeSubmission;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -232,7 +233,7 @@ public class ControllerImplementation implements IController, ActionListener {
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        if (insert.getCheck().isSelected() && insert.getPhoneCheck().isSelected()) {
+        if (insert.getCheck().isSelected() && insert.getPhoneCheck().isSelected() && checkZipCodeSubmission(insert.getZipCode().getText())) {
             insert(p);
             this.menu.getUserCount().setText("Registered users: " + String.valueOf(readAll().stream().count()));
             JOptionPane.showMessageDialog(insert, "Person inserted successfully!", insert.getTitle(), JOptionPane.INFORMATION_MESSAGE);
@@ -241,8 +242,8 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else if (!insert.getPhoneCheck().isSelected()) {
             JOptionPane.showMessageDialog(insert, "Phone number is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
-        } else if (!insert.getZipCodeCheck().isSelected()) {
-            JOptionPane.showMessageDialog(insert, "Zip code is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else if (!checkZipCodeSubmission(insert.getZipCode().getText())) {
+            JOptionPane.showMessageDialog(insert, "ZIP Code number is not valid, make sure to type it correctly following these examples.\n\n12345\n12345-6789\n12345 6789", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
