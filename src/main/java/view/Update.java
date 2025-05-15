@@ -20,7 +20,7 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import static utils.DataValidation.checkEmailAddress;
 import static utils.DataValidation.checkPhoneNumber;
-import static utils.DataValidation.checkZipCode;
+import static utils.DataValidation.checkZipCodeTyping;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
@@ -592,15 +592,14 @@ public class Update extends javax.swing.JDialog {
 
     private void zipCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeKeyTyped
         // TODO add your handling code here:
-        if (!isNumber(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE && evt.getKeyChar() != KeyEvent.VK_MINUS && evt.getKeyChar() != KeyEvent.VK_SPACE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
-        if (zipCode.getText().length() == 5) {
-            JOptionPane.showMessageDialog(this, "You can only type 5 numbers.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        if ((zipCode.getText().length() > 4 && !checkZipCodeTyping(zipCode.getText()))) {
+            JOptionPane.showMessageDialog(this, "ZIP Code is invalid.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
-        showUpdate();
     }//GEN-LAST:event_zipCodeKeyTyped
 
 

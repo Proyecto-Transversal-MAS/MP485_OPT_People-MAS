@@ -48,9 +48,18 @@ public class DataValidation {
         return p.matcher(phone).matches();
     }
 
-    public static boolean checkZipCode(String zipCode) {
-        String zipCodeRegex = "^(\d{5})(?:[-\s]?\d{4})?$";
-        Pattern p = Pattern.compile(zipCodeRegex);
+    public static boolean checkZipCodeTyping(String zipCode) {
+        String zipCodeRegexTyping = "^\\d{0,5}([-\\s]?\\d{0,4})?$";
+        Pattern p = Pattern.compile(zipCodeRegexTyping);
+        if (zipCode == null) {
+            return false;
+        }
+        return p.matcher(zipCode).matches();
+    }
+    
+    public static boolean checkZipCodeSubmission(String zipCode) {
+        String zipCodeRegexSubmission = "^\\d{5}([-\\s]?\\d{4})?$";
+        Pattern p = Pattern.compile(zipCodeRegexSubmission);
         if (zipCode == null) {
             return false;
         }

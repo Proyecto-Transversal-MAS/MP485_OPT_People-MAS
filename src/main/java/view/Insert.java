@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 import static utils.DataValidation.checkPhoneNumber;
-import static utils.DataValidation.checkZipCode;
+import static utils.DataValidation.checkZipCodeTyping;
 
 /**
  * Interface used to register a person. It is mandatory to enter at least the
@@ -129,11 +129,6 @@ public class Insert extends javax.swing.JDialog {
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        insert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertActionPerformed(evt);
-            }
-        });
         getContentPane().add(insert, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 258, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -337,7 +332,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && (zipCode.getText().length() >= 5 && zipCode.getText().length() <= 9)  && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && (zipCode.getText().length() >= 5 && zipCode.getText().length() <= 10) && !name.getText().isEmpty() && !nif.isEditable()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -464,13 +459,13 @@ public class Insert extends javax.swing.JDialog {
 
     private void zipCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeKeyTyped
         showInsert();
-        String input = zipCode.getText() + evt.getKeyChar();
-        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE && evt.getKeyChar() != KeyEvent.VK_MINUS && evt.getKeyChar() != KeyEvent.VK_SPACE) {
             JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             evt.consume();
         }
-        if (input.length() > 4 && !checkZipCode(input)) {
+        if ((zipCode.getText().length() > 4 && !checkZipCodeTyping(zipCode.getText()))) {
             JOptionPane.showMessageDialog(this, "ZIP Code is invalid.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            evt.consume();
         }
     }//GEN-LAST:event_zipCodeKeyTyped
 
@@ -499,11 +494,6 @@ public class Insert extends javax.swing.JDialog {
             name.setForeground(Color.gray);
         }
     }//GEN-LAST:event_nameFocusLost
-
-    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-        // Como zipCode no tiene un boton de check, integramos la validacion de regex en el boton de "insert".
-
-    }//GEN-LAST:event_insertActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox EmailIsValidCheck;
