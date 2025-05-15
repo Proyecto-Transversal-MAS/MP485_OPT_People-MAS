@@ -49,7 +49,7 @@ public class DataValidation {
     }
 
     public static boolean checkZipCode(String zipCode) {
-        String zipCodeRegex = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
+        String zipCodeRegex = "^(\d{5})(?:[-\s]?\d{4})?$";
         Pattern p = Pattern.compile(zipCodeRegex);
         if (zipCode == null) {
             return false;
