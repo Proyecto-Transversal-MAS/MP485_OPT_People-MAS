@@ -80,10 +80,6 @@ public class Insert extends javax.swing.JDialog {
         return phone;
     }
 
-    public JCheckBox getZipCodeCheck() {
-        return ZipCodeValidCheck;
-    }
-
     public JTextField getZipCode() {
         return zipCode;
     }
@@ -96,7 +92,6 @@ public class Insert extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jCheckBox1 = new javax.swing.JCheckBox();
         insert = new javax.swing.JButton();
@@ -120,8 +115,6 @@ public class Insert extends javax.swing.JDialog {
         PhoneValidCheck = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         zipCode = new javax.swing.JTextField();
-        checkZipCodeField = new javax.swing.JButton();
-        ZipCodeValidCheck = new javax.swing.JCheckBox();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -129,34 +122,26 @@ public class Insert extends javax.swing.JDialog {
         setTitle("Insert - People v1.1.0");
         setMinimumSize(new java.awt.Dimension(810, 280));
         setResizable(false);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         insert.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         insert.setText("INSERT");
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 22;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 100, 0, 0);
-        getContentPane().add(insert, gridBagConstraints);
+        insert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertActionPerformed(evt);
+            }
+        });
+        getContentPane().add(insert, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 258, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Email");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 108, 150, -1));
 
         name.setForeground(new java.awt.Color(153, 153, 153));
         name.setText("Enter full name");
@@ -179,14 +164,7 @@ public class Insert extends javax.swing.JDialog {
                 nameKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(name, gridBagConstraints);
+        getContentPane().add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 68, -1, -1));
 
         reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reset.setText("RESET");
@@ -199,14 +177,7 @@ public class Insert extends javax.swing.JDialog {
                 resetActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 22;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 24, 0, 0);
-        getContentPane().add(reset, gridBagConstraints);
+        getContentPane().add(reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 258, 189, -1));
 
         photo.setBackground(new java.awt.Color(255, 255, 255));
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
@@ -221,27 +192,14 @@ public class Insert extends javax.swing.JDialog {
                 photoMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 19;
-        gridBagConstraints.ipady = 36;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 0);
-        getContentPane().add(photo, gridBagConstraints);
+        getContentPane().add(photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 16, -1, 171));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("NIF");
         jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 22, 0, 0);
-        getContentPane().add(jLabel5, gridBagConstraints);
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 28, 150, -1));
 
         nif.setForeground(new java.awt.Color(153, 153, 153));
         nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
@@ -267,64 +225,32 @@ public class Insert extends javax.swing.JDialog {
                 nifKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 24, 0, 0);
-        getContentPane().add(nif, gridBagConstraints);
+        getContentPane().add(nif, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 28, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Date of Birth");
         jLabel8.setMaximumSize(new java.awt.Dimension(150, 22));
         jLabel8.setMinimumSize(new java.awt.Dimension(150, 22));
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 19;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 22, 0, 0);
-        getContentPane().add(jLabel8, gridBagConstraints);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 233, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         jLabel2.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 23;
-        gridBagConstraints.gridwidth = 26;
-        gridBagConstraints.ipadx = 543;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(26, 8, 34, 0);
-        getContentPane().add(jLabel2, gridBagConstraints);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 317, 717, -1));
 
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 19;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(14, 24, 0, 0);
-        getContentPane().add(dateOfBirth, gridBagConstraints);
+        getContentPane().add(dateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 230, 400, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Name");
         jLabel3.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel3.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel3.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 22, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 66, 150, -1));
 
         email.setMaximumSize(new java.awt.Dimension(400, 22));
         email.setMinimumSize(new java.awt.Dimension(400, 22));
@@ -337,15 +263,7 @@ public class Insert extends javax.swing.JDialog {
                 emailKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(email, gridBagConstraints);
+        getContentPane().add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 108, 294, -1));
 
         checkEmailField.setText("CHECK");
         checkEmailField.addActionListener(new java.awt.event.ActionListener() {
@@ -353,45 +271,20 @@ public class Insert extends javax.swing.JDialog {
                 checkEmailFieldActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
-        getContentPane().add(checkEmailField, gridBagConstraints);
+        getContentPane().add(checkEmailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 107, -1, -1));
 
         EmailIsValidCheck.setEnabled(false);
         EmailIsValidCheck.setFocusable(false);
         EmailIsValidCheck.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 10, 0, 34);
-        getContentPane().add(EmailIsValidCheck, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(jPanel1, gridBagConstraints);
+        getContentPane().add(EmailIsValidCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 107, -1, 26));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 6));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Phone");
         jLabel4.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel4.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel4.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
-        getContentPane().add(jLabel4, gridBagConstraints);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 151, 150, -1));
 
         phone.setMaximumSize(new java.awt.Dimension(400, 22));
         phone.setMinimumSize(new java.awt.Dimension(400, 22));
@@ -404,15 +297,7 @@ public class Insert extends javax.swing.JDialog {
                 phoneKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(phone, gridBagConstraints);
+        getContentPane().add(phone, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 151, 294, -1));
 
         checkPhoneField.setText("CHECK");
         checkPhoneField.addActionListener(new java.awt.event.ActionListener() {
@@ -420,40 +305,19 @@ public class Insert extends javax.swing.JDialog {
                 checkPhoneFieldActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
-        getContentPane().add(checkPhoneField, gridBagConstraints);
+        getContentPane().add(checkPhoneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(666, 150, -1, -1));
 
         PhoneValidCheck.setEnabled(false);
         PhoneValidCheck.setFocusable(false);
         PhoneValidCheck.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 10, 0, 34);
-        getContentPane().add(PhoneValidCheck, gridBagConstraints);
+        getContentPane().add(PhoneValidCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(748, 150, -1, 26));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("ZIP Code");
         jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
-        getContentPane().add(jLabel6, gridBagConstraints);
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 194, 150, -1));
 
         zipCode.setMaximumSize(new java.awt.Dimension(400, 22));
         zipCode.setMinimumSize(new java.awt.Dimension(400, 22));
@@ -466,49 +330,14 @@ public class Insert extends javax.swing.JDialog {
                 zipCodeKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -106;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        getContentPane().add(zipCode, gridBagConstraints);
-
-        checkZipCodeField.setText("CHECK");
-        checkZipCodeField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkZipCodeFieldActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 6, 0, 0);
-        getContentPane().add(checkZipCodeField, gridBagConstraints);
-
-        ZipCodeValidCheck.setEnabled(false);
-        ZipCodeValidCheck.setFocusable(false);
-        ZipCodeValidCheck.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 13;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipady = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 10, 0, 34);
-        getContentPane().add(ZipCodeValidCheck, gridBagConstraints);
+        getContentPane().add(zipCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(366, 194, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && !zipCode.getText().isEmpty() && !name.getText().isEmpty() && !nif.isEditable()) {
+        if (!email.getText().isEmpty() && !phone.getText().isEmpty() && (zipCode.getText().length() >= 5 && zipCode.getText().length() <= 9)  && !name.getText().isEmpty() && !nif.isEditable()) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -538,7 +367,6 @@ public class Insert extends javax.swing.JDialog {
         // We reset the phone and email checks
         EmailIsValidCheck.setSelected(false);
         PhoneValidCheck.setSelected(false);
-        checkZipCodeField.setSelected(false);
     }//GEN-LAST:event_resetActionPerformed
 
     private void nifKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyTyped
@@ -635,24 +463,17 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_zipCodeKeyReleased
 
     private void zipCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeKeyTyped
-        ZipCodeValidCheck.setSelected(false);
+        showInsert();
+        String input = zipCode.getText() + evt.getKeyChar();
+        if (!Character.isDigit(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only numbers [0-9]", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            evt.consume();
+        }
+        if (input.length() > 4 && !checkZipCode(input)) {
+            JOptionPane.showMessageDialog(this, "ZIP Code is invalid.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_zipCodeKeyTyped
 
-    private void checkZipCodeFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        if (!checkZipCode(zipCode.getText()) && zipCode.getText().length() == 5) {
-            JOptionPane.showMessageDialog(this, "Please introduce the ZIP Code first before checking for validity.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            ZipCodeValidCheck.setSelected(false);
-        } else {
-            if (!checkZipCode(zipCode.getText())) {
-                JOptionPane.showMessageDialog(this, "ZIP Code is not valid, remember, type only numbers, do not leave trailing whitespaces.\nZipCode, must be 5 digits.\n\nA phone number should look like this '80000'", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-                ZipCodeValidCheck.setSelected(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "ZIP Code specified is valid.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-                ZipCodeValidCheck.setSelected(true);
-            }
-        }
-    }
-      
     private void nifFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nifFocusGained
         if ((nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)"))) {
             nif.setText("");
@@ -679,13 +500,16 @@ public class Insert extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_nameFocusLost
 
+    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
+        // Como zipCode no tiene un boton de check, integramos la validacion de regex en el boton de "insert".
+
+    }//GEN-LAST:event_insertActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox EmailIsValidCheck;
     private javax.swing.JCheckBox PhoneValidCheck;
-    private javax.swing.JCheckBox ZipCodeValidCheck;
     private javax.swing.JButton checkEmailField;
     private javax.swing.JButton checkPhoneField;
-    private javax.swing.JButton checkZipCodeField;
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JTextField email;
     private javax.swing.JButton insert;

@@ -241,8 +241,6 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(insert, "Email is not valid, use the box next to the email field to validate the email before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else if (!insert.getPhoneCheck().isSelected()) {
             JOptionPane.showMessageDialog(insert, "Phone number is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
-        } else if (!insert.getZipCodeCheck().isSelected()) {
-            JOptionPane.showMessageDialog(insert, "Zip code is not valid, use the box next to the phone number field to validate the phone number before inserting.", insert.getTitle(), JOptionPane.ERROR_MESSAGE);
         }
     }
 
