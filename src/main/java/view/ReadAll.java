@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -30,7 +31,10 @@ public class ReadAll extends javax.swing.JDialog {
         return table;
     }
 
-    
+    public JButton getExportButton() {
+        return exportData;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,8 +111,6 @@ public class ReadAll extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exportData;
     private javax.swing.JLabel jLabel2;
