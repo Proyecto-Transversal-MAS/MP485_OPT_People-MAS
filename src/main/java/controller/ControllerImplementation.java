@@ -22,19 +22,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.persistence.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import model.dao.DAOSQL;
 import org.jdatepicker.DateModel;
@@ -113,6 +119,8 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
+        } else if (e.getSource() == readAll.getExportButton()) {
+            exportTableAction(readAll.getTable());
         }
     }
 
@@ -374,6 +382,7 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
         } else {
             readAll = new ReadAll(menu, true);
+            readAll.getExportButton().addActionListener(this);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
             for (int i = 0; i < s.size(); i++) {
                 model.addRow(new Object[i]);
@@ -426,7 +435,8 @@ public class ControllerImplementation implements IController, ActionListener {
      * @param p Person to insert
      */
     @Override
-    public void insert(Person p) {
+    public void insert(Person p
+    ) {
         try {
             if (dao.read(p) == null) {
                 dao.insert(p);
@@ -457,7 +467,8 @@ public class ControllerImplementation implements IController, ActionListener {
      * @param p Person to update
      */
     @Override
-    public void update(Person p) {
+    public void update(Person p
+    ) {
         try {
             dao.update(p);
         } catch (Exception ex) {
@@ -480,7 +491,8 @@ public class ControllerImplementation implements IController, ActionListener {
      * @param p Person to read
      */
     @Override
-    public void delete(Person p) {
+    public void delete(Person p
+    ) {
         try {
             if (dao.read(p) != null) {
                 dao.delete(p);
@@ -512,7 +524,8 @@ public class ControllerImplementation implements IController, ActionListener {
      * @return Person or null
      */
     @Override
-    public Person read(Person p) {
+    public Person read(Person p
+    ) {
         try {
             Person pTR = dao.read(p);
             if (pTR != null) {
@@ -568,6 +581,51 @@ public class ControllerImplementation implements IController, ActionListener {
                     || ex instanceof SQLException || ex instanceof PersistenceException) {
                 JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Delete All - People v1.1.0", JOptionPane.ERROR_MESSAGE);
                 System.exit(0);
+            }
+        }
+    }
+
+    public void exportTableAction(JTable table) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Export to CSV");
+        fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files", "csv"));
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String currentDate = dateFormat.format(new Date());
+        fileChooser.setSelectedFile(new File("people_data_" + currentDate + ".csv"));
+
+        int answer = fileChooser.showSaveDialog(menu);
+
+        if (answer == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            if (!fileToSave.getName().toLowerCase().endsWith(".csv")) {
+                fileToSave = new File(fileToSave.getAbsolutePath() + ".csv");
+            }
+
+            try (FileWriter writer = new FileWriter(fileToSave)) {
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    writer.write(model.getColumnName(i));
+                    if (i < model.getColumnCount() - 1) {
+                        writer.write(",");
+                    }
+                }
+                writer.write("\n");
+
+                for (int row = 0; row < model.getRowCount(); row++) {
+                    for (int col = 0; col < model.getColumnCount(); col++) {
+                        writer.write("\"" + (model.getValueAt(row, col) != null ? model.getValueAt(row, col).toString() : "") + "\"");
+                        if (col < model.getColumnCount() - 1) {
+                            writer.write(",");
+                        }
+                    }
+                    writer.write("\n");
+                }
+
+                JOptionPane.showMessageDialog(menu, "Data exported successfully!", "Export Complete", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(menu, "Error exporting data: " + ex.getMessage(), "Export Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
