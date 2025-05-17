@@ -38,6 +38,7 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
+        customDatePicker();
     }
 
     public JButton getReset() {
@@ -82,6 +83,12 @@ public class Insert extends javax.swing.JDialog {
 
     public JTextField getZipCode() {
         return zipCode;
+    }
+    
+    private void customDatePicker(){
+        JButton updatedButton = dateOfBirth.getButton();
+        updatedButton.setText("SELECT A DATE");
+        updatedButton.setPreferredSize(new java.awt.Dimension(110, 50));
     }
 
     /**
